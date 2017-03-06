@@ -1,0 +1,42 @@
+工具：
+	notepad++、editplus
+	CMD的代替工具=cmder
+
+IOC
+	<bean>
+		ID
+		Name
+		Alias 别名
+	getBean()
+		ID
+		Name
+		Alias
+		实现类
+		接口
+		标识+接口
+	
+DI
+	属性进行注入 property
+	构造方法注入 constructor-arg，无参和有参的区别，一旦是有参构造方法，那么久需要把无参的构造方法也声明出来
+	<bean id="zhenhuanId" name="zhenhuanName" class="com.hpit.service.lmpl.ZhenHuan" >
+		<property name="drink" value="羊奶"></property>
+		<property name="food" value="羊肉"></property>
+		<property name="huafei" ref="huafei"></property>
+	</bean>
+	<alias name="zhenhuanName" alias="zh"/>
+	<bean id="huafei" class="com.hpit.service.lmpl.HuaFei"></bean>
+	ref 引用的意思，引用一个标识 id="huafei" 
+	p标识空间 作用注入属性
+	autowire="byType" 通过xml里面<bean>标签中声明 autowire 来自动装配
+		byType
+		byName
+	depends-on  依赖检查，B依赖A，那么先去把我们的A装到Spring容器中，然后在装自己
+
+
+注解
+	@Service--服务成，业务层 可以默认后面不写东西，也可以写成@Service("起名字(标识)")  Service包
+	@Value 给属性注入值
+	@Component @Component("起名字(标识)") 无所不能
+	@Repository 仓库 ，，Dao包
+	@Controller 控制层
+	@Autowired//自動裝配

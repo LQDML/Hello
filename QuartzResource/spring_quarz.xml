@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean  id="myJob" class="com.bdqn.jbos.MyJob"></bean>
+<bean  id="methodInvokingJobDetailFactoryBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" depends-on="myJob">
+<property name="targetObject" ref="myJob"></property>
+<property name="targetMethod" value="test"></property>
+</bean>
+<bean id="cronTriggerFactoryBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" depends-on="methodInvokingJobDetailFactoryBean">
+<property name="jobDetail" ref="methodInvokingJobDetailFactoryBean"></property>
+<property name="cronExpression" value="*/50 * * * * ?"></property>
+<!-- <property name="cronExpression" value="0 59 19 * * ?"></property> -->
+</bean>
+<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" depends-on="cronTriggerFactoryBean">
+<property name="triggers">
+<list>
+<ref bean="cronTriggerFactoryBean"/>
+
+
+</list>
+
+
+</property>
+
+</bean>
+</beans>

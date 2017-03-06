@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.dao.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.entity.Goods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
+    <result column="billStatus" jdbcType="VARCHAR" property="billstatus" />
+    <result column="goodsDistrict" jdbcType="VARCHAR" property="goodsdistrict" />
+    <result column="goodsPrice" jdbcType="INTEGER" property="goodsprice" />
+    <result column="goodsCount" jdbcType="INTEGER" property="goodscount" />
+   
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, goodsName, billStatus, goodsDistrict, goodsPrice, goodsCount
+  </sql>
+   <select id="selectByPrimaryKeys" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goodss
+    where id = #{id,jdbcType=INTEGER}
+  </select> 
+  <select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goodss
+    where goodsDistrict =#{select}
+  </select>
+  <select id="selectByPrimary"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goodss
+   
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goodss
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bdqn.entity.Goods">
+    insert into goodss (id, goodsName, billStatus, 
+      goodsDistrict, goodsPrice, goodsCount, 
+      creationTime)
+    values (#{id,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{billstatus,jdbcType=VARCHAR}, 
+      #{goodsdistrict,jdbcType=VARCHAR}, #{goodsprice,jdbcType=INTEGER}, #{goodscount,jdbcType=INTEGER}, 
+      #{creationtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdqn.entity.Goods">
+    insert into goodss
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodsname != null">
+        goodsName,
+      </if>
+      <if test="billstatus != null">
+        billStatus,
+      </if>
+      <if test="goodsdistrict != null">
+        goodsDistrict,
+      </if>
+      <if test="goodsprice != null">
+        goodsPrice,
+      </if>
+      <if test="goodscount != null">
+        goodsCount,
+      </if>
+      <if test="creationtime != null">
+        creationTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="billstatus != null">
+        #{billstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsdistrict != null">
+        #{goodsdistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null">
+        #{goodsprice,jdbcType=INTEGER},
+      </if>
+      <if test="goodscount != null">
+        #{goodscount,jdbcType=INTEGER},
+      </if>
+      <if test="creationtime != null">
+        #{creationtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.entity.Goods">
+    update goodss
+    <set>
+      <if test="goodsname != null">
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="billstatus != null">
+        billStatus = #{billstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsdistrict != null">
+        goodsDistrict = #{goodsdistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null">
+        goodsPrice = #{goodsprice,jdbcType=INTEGER},
+      </if>
+      <if test="goodscount != null">
+        goodsCount = #{goodscount,jdbcType=INTEGER},
+      </if>
+      <if test="creationtime != null">
+        creationTime = #{creationtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+     where id = #{id,jdbcType=INTEGER} 
+  </update> 
+ <!--  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.entity.Goods">
+    update goodss
+    set goodsName = #{goodsname},
+      billStatus = #{billstatus},
+      goodsPrice = #{goodsprice},
+      goodsCount = #{goodscount},
+    where id = #{id}
+  </update> -->
+</mapper>
